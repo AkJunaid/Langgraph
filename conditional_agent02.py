@@ -1,7 +1,6 @@
 from typing import Dict, TypedDict, List
 from langgraph.graph import StateGraph, START, END
 
-
 class AgentState(TypedDict):
     num01 : int
     num02 : int
