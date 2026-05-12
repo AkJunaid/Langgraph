@@ -1,15 +1,15 @@
 from typing import TypedDict, List
 from langchain_core.messages import HumanMessage
-from langchain_groq import ChatGroq
+from langchain_openai import ChatOpenAI
 from langgraph.graph import StateGraph, START, END
-from dotenv import load_dotenv
+from dotenv import load_dotenv # used to store secret stuff like API keys or configuration values
 
 load_dotenv()
 
 class AgentState(TypedDict):
     messages: List[HumanMessage]
 
-llm = ChatGroq(model="llama-3.1-8b-instant")
+llm = ChatOpenAI(model="gpt-4o")
 
 def process(state: AgentState) -> AgentState:
     response = llm.invoke(state["messages"])
@@ -26,4 +26,3 @@ user_input = input("Enter: ")
 while user_input != "exit":
     agent.invoke({"messages": [HumanMessage(content=user_input)]})
     user_input = input("Enter: ")
-
