@@ -4,7 +4,7 @@ from langgraph.graph import StateGraph, END
 from typing import TypedDict, Annotated, Sequence
 from langchain_core.messages import BaseMessage, SystemMessage, HumanMessage, ToolMessage
 from operator import add as add_messages
-from langchain_openai import ChatOpenAI
+from langchain_groq import ChatGroq
 from langchain_openai import OpenAIEmbeddings
 from langchain_community.document_loaders import PyPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
@@ -14,7 +14,7 @@ from langchain_core.tools import tool
 load_dotenv()
 
 llm = ChatOpenAI(
-    model="gpt-4o", temperature = 0) # I want to minimize hallucination - temperature = 0 makes the model output more deterministic 
+    model="llama-3.1-8b-instant", temperature = 0) # I want to minimize hallucination - temperature = 0 makes the model output more deterministic 
 
 # Our Embedding Model - has to also be compatible with the LLM
 embeddings = OpenAIEmbeddings(
@@ -22,7 +22,7 @@ embeddings = OpenAIEmbeddings(
 )
 
 
-pdf_path = "Stock_Market_Performance_2024.pdf"
+pdf_path = "/home/junaid/Langgraph/The Alchemist.pdf"
 
 
 # Safety measure I have put for debugging purposes :)
@@ -48,7 +48,7 @@ text_splitter = RecursiveCharacterTextSplitter(
 
 pages_split = text_splitter.split_documents(pages) # We now apply this to our pages
 
-persist_directory = r"C:\Vaibhav\LangGraph_Book\LangGraphCourse\Agents"
+persist_directory = r"/home/junaid/Langgraph"
 collection_name = "stock_market"
 
 # If our collection does not exist in the directory, we create using the os command
